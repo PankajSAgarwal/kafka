@@ -1,0 +1,16 @@
+
+t
+java:S2142."^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+Q	java:S1256"<This block of commented-out lines of code should be removed.(°Íˆ‘
+U
+java:S6213;":Rename this variable to not match a restricted identifier.(´Å£Ÿýÿÿÿÿ
+W
+java:S3457<"AFormat specifiers should be used instead of string concatenation.(—žËÈ
+\
+java:S3457="AFormat specifiers should be used instead of string concatenation.(¾ÙÙÖÿÿÿÿÿ
+o
+java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(ûåžâ
+r
+java:S2629<"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(—žËÈ
+w
+java:S2629="\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¾ÙÙÖÿÿÿÿÿ

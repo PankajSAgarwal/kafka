@@ -1,0 +1,16 @@
+
+Q	java:S125&"<This block of commented-out lines of code should be removed.(°Íˆ‘
+U
+java:S6213,":Rename this variable to not match a restricted identifier.(´Å£Ÿıÿÿÿÿ
+W
+java:S3457-"AFormat specifiers should be used instead of string concatenation.(—ËÈ
+\
+java:S3457."AFormat specifiers should be used instead of string concatenation.(¾ÙÙÖÿÿÿÿÿ
+M
+java:S1128"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ
+o
+java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(ûåâ
+r
+java:S2629-"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(—ËÈ
+w
+java:S2629."\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¾ÙÙÖÿÿÿÿÿ

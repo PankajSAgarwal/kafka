@@ -1,0 +1,119 @@
+1. Start zookeeper using brew
+
+/opt/homebrew/bin/zookeeper-server-start /opt/homebrew/etc/zookeeper/zoo.cfg
+
+2. Start kafka server using brew 
+
+/opt/homebrew/bin/kafka-server-start /opt/homebrew/etc/kafka/server.properties
+
+3. list topics in kafka
+
+kafka-topics --bootstrap-server localhost:9092 --list
+
+4. create a topic with default 1 partition
+
+kafka-topics --bootstrap-server localhost:9092 --create --topic first_topic
+
+5. create a topic with more than 1 partitions 
+
+kafka-topics --bootstrap-server localhost:9092 --create --topic second_topic --partitions 3
+
+6. create a topic with more than 1 partition and a replication factor of 2 .
+Note: replication factor has to be less than or equal to number of available brokers
+
+kafka-topics --bootstrap-server localhost:9092 --create --topic third_topic --partitions 3 --replication-factor 2
+
+7. Describe a topic 
+
+kafka-topics --bootstrap-server localhost:9092 --describe --topic first_topic
+
+8. describe all topics in a cluster
+
+kafka-topics --bootstrap-server localhost:9092 --describe
+
+9. delete a topic
+
+kafka-topics --bootstrap-server localhost:9092 --delete --topic first_topic
+
+10. send data to kafka topic (producer with null key)
+
+a. create a kafka topic with 3 partitions
+
+kafka-topics --bootstrap-server localhost:9092 --create --topic first_topic --partitions 3
+
+b. use kafka-console-producer to send message to topic
+
+kafka-console-producer --bootstrap-server localhost:9092 --topic first_topic
+> Hello World
+> My name is Pankaj
+> i love kafka
+
+11. send data to kafka topic with producer-property
+
+kafka-console-producer --bootstrap-server loclahost:9092 --topic first_topic --producer-property acks=all
+
+12. What happens if u try to send data to a topic that does not exist ?
+
+Kafka tries to create the topic that does not exist , but since topics creation takes some time , it might show LEADER_NOT_AVAILABLE error . But it is a retirable error and hence kafka retries and creates topic 
+
+kafka-console-producer --bootstrap-server localhost:9092 --topic new_topic
+
+13. send data to kafka topic with producer with key
+
+kafka-console-prodcuer --bootstrap-server localhost:9092 --topic first_topic --property "parse.key=true" --property "key.separator=:"
+>exmaple key:example value
+>user_id_1234:Pankaj
+
+14. consume message from kafka topic using kafka-console-consumer
+
+By default kafka-console-consumer reads from the end of topic
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic 
+
+15. consume message from kafka topic using kafka-console-consumer from beginning
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --from-beginning
+
+16. Display key,value and timestamp in consumer
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --from-beginning
+
+17. reading a topic using a consumer group
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --group my-first-cosnumer-group
+
+18. list consumer group
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --list
+
+19. describe a consumer group
+
+kafka-consumer-groups --bootstarp-server localhost:9092 --describe --group my-first-consumer-group
+
+20. reset offset for a consumer group for all topics so that consumer reads from the start of the topic
+
+a) kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-consumer-group --reset-offsets --to-earliest --execute --all-topics
+
+b) kafka console consumer will read from the beginning of the topic as the offset is reset in a) 
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic --group my-first-cosnumer
+
+c) lag will again be 0 when we describe the consumer group
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group my-first-consumer-group
+
+21. shift offset by 2 (forward)
+
+a) kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-consumer-group --reset-offsets --shift-by 2 --execute --topic first_topic
+
+b) consume again
+
+kafka-console-consumer --bootstrap-server localhost:9092 --group my-first-consumer-group --topic first-topic
+
+22. shift offset by -2 (backward)
+
+a) kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-consumer-group --reset-offsets --shift-by -2 --execute --topic first_topic 
+
+b) consume again
+
+kafka-console-consumer --bootstrap-server localhost:9092 --group my-first-consumer-group --topic first-topic

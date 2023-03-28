@@ -117,3 +117,8 @@ a) kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-cons
 b) consume again
 
 kafka-console-consumer --bootstrap-server localhost:9092 --group my-first-consumer-group --topic first-topic
+
+23) codepen for wikimedia producer
+https://codepen.io/Krinkle/pen/BwEKgW?editors=1010
+24) wikimediaproducer demo
+https://esjewett.github.io/wm-eventsource-demo/

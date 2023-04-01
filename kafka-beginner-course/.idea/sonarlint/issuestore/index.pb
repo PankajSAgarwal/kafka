@@ -13,5 +13,3 @@ w
 Gkafka-basics/src/main/java/com/pankaj/demos/kafka/ProducerDemoKeys.java,3/a/3af6918166365f424bfc4fb75d002e63ba73c0e8
 ~
 Nkafka-basics/src/main/java/com/pankaj/demos/kafka/ConsumerDemoCooperative.java,c/2/c2e49e00117c1c20b13d4de5b6c0140082d948cb
-I
-kafka-basics/build.gradle,e/3/e3654e87ff6ebd41529074e5b68a7b019084903f

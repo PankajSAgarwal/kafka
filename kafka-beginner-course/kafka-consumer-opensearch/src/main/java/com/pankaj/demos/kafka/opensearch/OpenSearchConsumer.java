@@ -8,16 +8,23 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.opensearch.action.index.IndexRequest;
+import org.opensearch.action.index.IndexResponse;
 import org.opensearch.client.*;
 import org.opensearch.client.indices.CreateIndexRequest;
 import org.opensearch.client.indices.GetIndexRequest;
+import org.opensearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.Duration;
+import java.util.Collections;
 import java.util.Properties;
 
 
@@ -79,6 +86,27 @@ public class OpenSearchConsumer {
                 log.info("Wikimedia Index has been created.");
             }else{
                 log.info("Wikimedia index already exists");
+            }
+
+            // we subscribe the consumer
+            consumer.subscribe(Collections.singleton("wikimedia.recentchange"));
+
+            while (true){
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(3000));
+                int recordCount = records.count();
+                log.info("Received " + recordCount + " record(s).");
+                for (ConsumerRecord<String, String> record : records) {
+                    try{
+                        IndexRequest indexRequest = new IndexRequest("wikimedia").source(record.value(), XContentType.JSON);
+                        IndexResponse response = openSearchClient.index(indexRequest, RequestOptions.DEFAULT);
+                        log.info(response.getId());
+                    }catch (Exception e){
+                        
+
+                    }
+
+                }
+
             }
 
         }

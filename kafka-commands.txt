@@ -122,3 +122,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --group my-first-consum
 https://codepen.io/Krinkle/pen/BwEKgW?editors=1010
 24) wikimediaproducer demo
 https://esjewett.github.io/wm-eventsource-demo/
+
+25) reset offsets
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --group consumer-opensearch-demo --reset-offsets --shift-by --to-earliest --execute <topic name>
